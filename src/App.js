@@ -27,10 +27,10 @@ class App extends Component {
   componentDidMount = async () => {
     try {
       const projectId = window.location.hostname.split('.')[0]
-      const { data: { componentsConfiguration, style, _id } } = await api.get(`/projects/${projectId}`)
+      const { data: { deployedConfiguration , style, _id } } = await api.get(`/projects/${projectId}`)
       this.setState({
         projectId: _id,
-        userLayoutObj: componentsConfiguration,
+        userLayoutObj: deployedConfiguration,
         projectStyle: style,
         status: STATUS.LOADED
       })
