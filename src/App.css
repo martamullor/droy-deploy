@@ -1,0 +1,19 @@
+.App {
+  font-family: 'Montserrat', sans-serif;
+  padding: 0px;
+  margin: 0px;
+  font-size: 10px;
+  height: 100vh;
+}
+
+.error-text {
+  font-size: 0.8rem;
+  color: red; 
+}
+
+.padding-error{
+  padding-left: 10px;
+}
+
+
+
