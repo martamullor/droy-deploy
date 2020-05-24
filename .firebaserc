@@ -1,6 +1,0 @@
-{
-  "projects": {
-    "development": "droy-dev",
-    "production": "droy-prod"
-  }
-}

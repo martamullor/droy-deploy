@@ -4,12 +4,19 @@ import Loading from './components/droy/Loading'
 import api from './services/apiClient'
 import MATCH_COMPONENTS from './utils/componentsMatching'
 import alias from './utils/alias'
+import Error from './components/droy/Error'
+
+const STATUS = {
+  LOADING: 'LOADING',
+  LOADED: 'LOADED',
+  ERROR: 'ERROR',
+} 
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      isLoading: true,
+      status: STATUS.LOADING,
       userLayoutObj: [],
       projectStyle: "",
       projectId: "",
@@ -18,13 +25,20 @@ class App extends Component {
   }
 
   componentDidMount = async () => {
-    const { data: { componentsConfiguration, style, _id } } = await api.get(`/projects/${window.location.hostname.split('.')[0]}`)
-    this.setState({
-      projectId: _id,
-      userLayoutObj: componentsConfiguration,
-      projectStyle: style,
-      isLoading: false
-    })
+    try {
+      const projectId = window.location.hostname.split('.')[0]
+      const { data: { componentsConfiguration, style, _id } } = await api.get(`/projects/${projectId}`)
+      this.setState({
+        projectId: _id,
+        userLayoutObj: componentsConfiguration,
+        projectStyle: style,
+        status: STATUS.LOADED
+      })
+    } catch (error) {
+      this.setState({
+        status: STATUS.ERROR
+      })
+    }
   }
 
   showUserComponents = () => {
@@ -37,11 +51,12 @@ class App extends Component {
   }
 
   render() {
-    const { isLoading } = this.state
+    const { status } = this.state
     return (
       <div className="main-builder">
-        {isLoading && <div className='loading-container'><Loading /></div>}
-        {!isLoading && <div className="components-builder">{this.showUserComponents()}</div>}
+        {status === STATUS.LOADING && <div className='loading-container'><Loading /></div>}
+        {status === STATUS.LOADED && <div className="components-builder">{this.showUserComponents()}</div>}
+        {status === STATUS.ERROR && <Error/>}
       </div>
     )
   }
