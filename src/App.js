@@ -5,6 +5,7 @@ import api from './services/apiClient'
 import MATCH_COMPONENTS from './utils/componentsMatching'
 import alias from './utils/alias'
 import Error from './components/droy/Error'
+import { Helmet } from "react-helmet";
 
 const STATUS = {
   LOADING: 'LOADING',
@@ -20,6 +21,7 @@ class App extends Component {
       userLayoutObj: [],
       projectStyle: "",
       projectId: "",
+      projectName: "",
       dataError: ""
     }
   }
@@ -27,11 +29,12 @@ class App extends Component {
   componentDidMount = async () => {
     try {
       const projectId = window.location.hostname.split('.')[0]
-      const { data: { deployedConfiguration , style, _id } } = await api.get(`/projects/${projectId}`)
+      const { data: { deployedConfiguration , style, _id, name } } = await api.get(`/projects/${projectId}`)
       this.setState({
         projectId: _id,
         userLayoutObj: deployedConfiguration,
         projectStyle: style,
+        projectName: name,
         status: STATUS.LOADED
       })
     } catch (error) {
@@ -51,11 +54,16 @@ class App extends Component {
   }
 
   render() {
-    const { status } = this.state
+    const { status, projectName } = this.state
     return (
       <div className="main-builder">
         {status === STATUS.LOADING && <div className='loading-container'><Loading /></div>}
-        {status === STATUS.LOADED && <div className="components-builder">{this.showUserComponents()}</div>}
+        {status === STATUS.LOADED &&
+        <div className="components-builder">
+          <Helmet> <title>{ projectName }</title> </Helmet>
+          {this.showUserComponents()}
+        </div>
+        }
         {status === STATUS.ERROR && <Error/>}
       </div>
     )
