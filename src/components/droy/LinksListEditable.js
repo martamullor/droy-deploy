@@ -3,12 +3,12 @@ import LinkEditable from './LinkEditable'
 
 export default class LinksListEditable extends Component {
   showLinks = () => {
-    const { mode, info, linksStyle} = this.props
+    const { mode, info, openChangeModal, linksStyle} = this.props
     const allLinks = []
     let i = 1
     for (const key in info) {
-      if(info[key].type !== 'link') continue
-      allLinks.push(<LinkEditable contentAttrStyle={info[key].style} key={i} mode={mode} info={info[key]} style={linksStyle} data-id={key}/>)
+      if(info[key].type !== 'listLink') continue
+      allLinks.push(<LinkEditable contentAttrStyle={info[key].style} key={i} mode={mode} info={info[key]} style={linksStyle} data-id={key} onDoubleClick={openChangeModal}/>)
       i += 1      
     }
     return allLinks
