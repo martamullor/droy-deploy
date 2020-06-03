@@ -1,6 +1,6 @@
 ![Droy Builder Logo](https://firebasestorage.googleapis.com/v0/b/droy-dev.appspot.com/o/public%2Fdroy_logo.png?alt=media&token=c6f641e9-d3b3-46e7-9b1a-24377b8b35df)
 
-# API Droy
+# Droy Deploy
 
 This repository is developed for the [Droy](https://github.com/marcmnc7/droy) application. It allows to show the published webpages by the users.
 
