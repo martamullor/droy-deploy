@@ -4,7 +4,7 @@
 
 This repository is developed for the [Droy](https://github.com/marcmnc7/droy) application. It allows to show the published webpages by the users.
 
-## Demo 
+## ⚡️Demo 
 
 [A demo is worth a thousand words](https://droy-prod.web.app/about)
 
